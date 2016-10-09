@@ -9,6 +9,7 @@ from logging import Formatter, FileHandler
 from forms import *
 import os
 from flask_socketio import SocketIO
+from game import Game
 
 #----------------------------------------------------------------------------#
 # App Config.
@@ -45,12 +46,13 @@ def login_required(test):
 
 @app.route('/')
 def home():
-    return render_template('pages/placeholder.home.html')
+    return render_template('pages/home.html')
 
 
 @app.route('/<int:playerid>')
 def player(playerid):
-    return "1"
+    return render_template('pages/player.html',
+        playername="Player " + str(playerid))
 
 
 @app.route('/<int:playerid>/play/<int:cardnum>')
@@ -61,6 +63,13 @@ def play(playerid, cardnum):
 @app.route('/<int:playerid>/choose/<int:cardnum>')
 def choose(playerid, cardnum):
     return cardnum
+
+
+@app.route('/start')
+def start():
+    game = Game(2)
+    return game
+
 
 
 '''

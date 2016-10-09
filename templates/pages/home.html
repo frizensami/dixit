@@ -1,0 +1,25 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<div class="page-header">
+  <center><h1>Which player are you?</h1></center>
+</div>
+
+<center>
+  <div class="btn-toolbar" role="group" aria-label="...">
+      <a href="/1" class="btn btn-default" role="button">Tester</a>
+      <a href="/2" class="btn btn-default" role="button">Subject</a>
+  </div>
+
+  <br>
+
+<div class="page-header">
+  <center><h1>Control Panel</h1></center>
+</div>
+  <div class="btn-toolbar" role="group" aria-label="...">
+      <a href="/start" class="btn btn-success" role="button">Start Game</a>
+  </div>
+
+</center>
+{% endblock %}
