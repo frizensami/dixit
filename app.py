@@ -25,11 +25,20 @@ current_game = None
 # Controllers.
 #----------------------------------------------------------------------------#
 
+def topic_callback(topic):
+    socketio.emit('topic', {'topic': topic}, broadcast=True)
+    print "Emitted topic: " + str(topic)
+
+
+def pick_target_callback():
+    print "====PICK TARGET===="
+
 
 @socketio.on('start_command')
 def start(data):
     global current_game
-    current_game = Game(num_players=3)
+    current_game = Game(num_players=3, send_topic_callback=topic_callback,
+                        send_pick_target_callback=pick_target_callback)
     if current_game.begin():
 
         to_send = {'starting_player': current_game.current_target_player}
@@ -42,12 +51,20 @@ def start(data):
         print "Game start status %s" % current_game.started
 
 
-@socketio.on('card_clicked')
-def clicked(data):
+@socketio.on('deck_card_clicked')
+def deck_clicked(data):
     player_id = data["playerid"]
     card_id = data["cardid"]
     print "card id: %s clicked by %s" % (str(card_id), str(player_id))
-    current_game.notify_card_clicked(player_id, card_id)
+    current_game.notify_deck_card_clicked(player_id, card_id)
+
+
+@socketio.on('other_card_clicked')
+def other_clicked(data):
+    player_id = data["playerid"]
+    card_id = data["cardid"]
+    print "card id: %s clicked by %s" % (str(card_id), str(player_id))
+    current_game.notify_other_card_clicked(player_id, card_id)
 
 
 @socketio.on('new_topic')
