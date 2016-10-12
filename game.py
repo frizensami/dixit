@@ -13,6 +13,7 @@ class STATE:
 
 class Game:
 
+    started = False
     state = STATE.WAIT_TOPIC
     players = []
     current_target_player = None
@@ -30,6 +31,13 @@ class Game:
 
     def set_topic(self, topic):
         self.topic = topic
+
+    def begin(self):
+        if not self.started:
+            self.started = True
+            return True
+        else:
+            return False
 
 
 

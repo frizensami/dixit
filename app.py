@@ -8,7 +8,7 @@ import logging
 from logging import Formatter, FileHandler
 from forms import *
 import os
-from flask_socketio import SocketIO, send, join_room, leave_room
+from flask_socketio import SocketIO, send, join_room, leave_room, emit
 from game import Game
 
 #----------------------------------------------------------------------------#
@@ -18,28 +18,9 @@ from game import Game
 app = Flask(__name__)
 app.config.from_object('config')
 socketio = SocketIO(app)
-#db = SQLAlchemy(app)
-current_game = None
+current_game = Game(num_players=3)
 
-# Automatically tear down SQLAlchemy.
-'''
-@app.teardown_request
-def shutdown_session(exception=None):
-    db_session.remove()
-'''
 
-# Login required decorator.
-'''
-def login_required(test):
-    @wraps(test)
-    def wrap(*args, **kwargs):
-        if 'logged_in' in session:
-            return test(*args, **kwargs)
-        else:
-            flash('You need to login first.')
-            return redirect(url_for('login'))
-    return wrap
-'''
 #----------------------------------------------------------------------------#
 # Controllers.
 #----------------------------------------------------------------------------#
@@ -50,11 +31,18 @@ def home():
     return render_template('pages/home.html')
 
 
+@socketio.on('start_command')
+def start(data):
+    current_game = Game(num_players=3);
+    if current_game.begin():
+        emit('start', {'starting_player': current_game.current_target_player}, broadcast=True)
+        print "Game started!"
+
+
+
 @app.route('/<int:playerid>')
 def player(playerid):
-    return render_template('pages/player.html',
-        playername="Player " + str(playerid),
-        room="Dixit")
+    return render_template('pages/player.html', playerid=str(playerid))
 
 
 @app.route('/<int:playerid>/play/<int:cardnum>')
@@ -69,11 +57,7 @@ def choose(playerid, cardnum):
 
 @socketio.on('join')
 def on_join(data):
-    username = data['username']
-    room = data['room']
-    join_room(room)
-    send(username + ' has entered the room.', room=room)
-    print str(username) + ' has entered the room ' + str(room)
+    print "Player joined: " + str(data['playerid'])
 
 
 @socketio.on('disconnect')
@@ -81,29 +65,6 @@ def on_leave():
     print "Client left!"
 
 
-'''
-@app.route('/about')
-def about():
-    return render_template('pages/placeholder.about.html')
-
-
-@app.route('/login')
-def login():
-    form = LoginForm(request.form)
-    return render_template('forms/login.html', form=form)
-
-
-@app.route('/register')
-def register():
-    form = RegisterForm(request.form)
-    return render_template('forms/register.html', form=form)
-
-
-@app.route('/forgot')
-def forgot():
-    form = ForgotForm(request.form)
-    return render_template('forms/forgot.html', form=form)
-'''
 # Error handlers.
 
 
