@@ -18,7 +18,7 @@ from game import Game
 app = Flask(__name__)
 app.config.from_object('config')
 socketio = SocketIO(app)
-current_game = Game(num_players=3)
+current_game = None
 
 
 #----------------------------------------------------------------------------#
@@ -31,7 +31,13 @@ def start(data):
     global current_game
     current_game = Game(num_players=3)
     if current_game.begin():
-        emit('start', {'starting_player': current_game.current_target_player}, broadcast=True)
+
+        to_send = {'starting_player': current_game.current_target_player}
+        for index, player in enumerate(current_game.players):
+            print "Index: " + str(index)
+            to_send[index] = player.deck[0:6]
+
+        emit('start', to_send, broadcast=True)
         print "Game started!"
         print "Game start status %s" % current_game.started
 

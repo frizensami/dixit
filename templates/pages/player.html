@@ -51,7 +51,7 @@
     socket.on('start', function(data) {
         console.log(data);
         current_player_id = data["starting_player"];
-
+        set_deck(data[my_id]);
 
         if (current_player_id == my_id) {
             change_header("Please enter a <b> topic </b> and click on a <b> card from your deck </b>");
@@ -80,6 +80,16 @@
       <h1 id="header">Game has not started</h1>
 
 
+      <div class="page-header">
+          <h2 id="header">Cards selected by other players</h2>
+
+          </div>
+
+
+          <input id='o0' onclick=card_clicked('o0') type="image" width="13%">
+          <input id='o1' onclick=card_clicked('o1') type="image" width="13%">
+
+
 
   <div class="page-header">
     <h2 id="header">Enter a topic (if it's your turn)</h2>
@@ -93,14 +103,6 @@
     <div class="btn-toolbar" role="group" aria-label="...">
       <button onclick=submit_topic() class="btn btn-success" role="button">Submit Topic</button>
       </div>
-      <div class="page-header">
-          <h2 id="header">Cards selected by other players</h2>
-
-          </div>
-
-
-          <input id='o0' onclick=card_clicked('o0') type="image" width="13%">
-          <input id='o1' onclick=card_clicked('o1') type="image" width="13%">
 
           <div class="page-header">
             <h2 id="header">Your Deck</h2>
