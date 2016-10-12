@@ -2,7 +2,7 @@
 # Imports
 #----------------------------------------------------------------------------#
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_file
 # from flask.ext.sqlalchemy import SQLAlchemy
 import logging
 from logging import Formatter, FileHandler
@@ -26,19 +26,28 @@ current_game = Game(num_players=3)
 #----------------------------------------------------------------------------#
 
 
-@app.route('/')
-def home():
-    return render_template('pages/home.html')
 
 
 @socketio.on('start_command')
 def start(data):
-    current_game = Game(num_players=3);
+    current_game = Game(num_players=3)
     if current_game.begin():
         emit('start', {'starting_player': current_game.current_target_player}, broadcast=True)
         print "Game started!"
 
 
+@socketio.on('join')
+def on_join(data):
+    print "Player joined: " + str(data['playerid'])
+
+
+@socketio.on('disconnect')
+def on_leave():
+    print "Client left!"
+
+
+
+# === APP ROUTES ===
 
 @app.route('/<int:playerid>')
 def player(playerid):
@@ -55,15 +64,15 @@ def choose(playerid, cardnum):
     return cardnum
 
 
-@socketio.on('join')
-def on_join(data):
-    print "Player joined: " + str(data['playerid'])
+@app.route('/')
+def home():
+    return render_template('pages/home.html')
 
 
-@socketio.on('disconnect')
-def on_leave():
-    print "Client left!"
-
+@app.route('/img/<int:img_num>')
+def get_image(img_num):
+    filename = "static/img/" + str(img_num) + ".jpg"
+    return send_file(filename, mimetype='image/jpg')
 
 # Error handlers.
 
