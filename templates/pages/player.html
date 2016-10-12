@@ -3,17 +3,17 @@
 {% block content %}
 
 <script type="text/javascript" charset="utf-8">
-function change_header(new_content) {
-    document.getElementById("header").innerHTML = new_content;
-}
+    function change_header(new_content) {
+        document.getElementById("header").innerHTML = new_content;
+    }
 
-function get_img_url(img_num) {
-    return 'http://' + document.domain + ':' + location.port + "/img/" + img_num
-}
+    function get_img_url(img_num) {
+        return 'http://' + document.domain + ':' + location.port + "/img/" + img_num
+    }
 
-function set_image(element_id, img_num) {
-    document.getElementById(element_id).src = get_img_url(img_num)
-}
+    function set_image(element_id, img_num) {
+        document.getElementById(element_id).src = get_img_url(img_num)
+    }
 
 
 
@@ -66,23 +66,36 @@ function set_image(element_id, img_num) {
 </div>
 
 <center>
-<input id='c0' onclick=card_clicked('0') type="image" width="10%">
-<input id='c1' onclick=card_clicked('1') type="image" width="10%">
-<input id='c2' onclick=card_clicked('2') type="image" width="10%">
-<input id='c3' onclick=card_clicked('3') type="image" width="10%">
-<input id='c4' onclick=card_clicked('4') type="image" width="10%">
-<input id='c5' onclick=card_clicked('5') type="image" width="10%">
+    <input id='c0' onclick=card_clicked('0') type="image" width="10%">
+    <input id='c1' onclick=card_clicked('1') type="image" width="10%">
+    <input id='c2' onclick=card_clicked('2') type="image" width="10%">
+    <input id='c3' onclick=card_clicked('3') type="image" width="10%">
+    <input id='c4' onclick=card_clicked('4') type="image" width="10%">
+    <input id='c5' onclick=card_clicked('5') type="image" width="10%">
+
+    <script>
+
+        set_image('c0', 0);
+        set_image('c1', 0);
+        set_image('c2', 0);
+        set_image('c3', 0);
+        set_image('c4', 0);
+        set_image('c5', 0);
+
+    </script>
+
+
+    <div class="page-header">
+      <center><h1 id="header">Enter a topic (if it's your turn)</h1></center>
+  </div>
+
+  <input id="topic" type="text" name="topic" value="">
+
+  <br>
+  <br>
+
+  <div class="btn-toolbar" role="group" aria-label="...">
+      <button onclick=submit_topic() class="btn btn-success" role="button">Submit Topic</a>
+      </div>
 </center>
-
-<script>
-
-set_image('c0', 0);
-set_image('c1', 0);
-set_image('c2', 0);
-set_image('c3', 0);
-set_image('c4', 0);
-set_image('c5', 0);
-
-</script>
-
-{% endblock %}
+  {% endblock %}
