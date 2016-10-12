@@ -35,6 +35,12 @@ def start(data):
         emit('start', {'starting_player': current_game.current_target_player}, broadcast=True)
         print "Game started!"
 
+@socketio.on('card_clicked')
+def start(data):
+    player_id = data["playerid"]
+    card_id = data["cardid"]
+    print "card id: %s clicked by %s" % (str(card_id), str(player_id))
+
 
 @socketio.on('join')
 def on_join(data):
