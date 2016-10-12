@@ -26,20 +26,30 @@ current_game = Game(num_players=3)
 #----------------------------------------------------------------------------#
 
 
-
-
 @socketio.on('start_command')
 def start(data):
+    global current_game
     current_game = Game(num_players=3)
     if current_game.begin():
         emit('start', {'starting_player': current_game.current_target_player}, broadcast=True)
         print "Game started!"
+        print "Game start status %s" % current_game.started
+
 
 @socketio.on('card_clicked')
-def start(data):
+def clicked(data):
     player_id = data["playerid"]
     card_id = data["cardid"]
     print "card id: %s clicked by %s" % (str(card_id), str(player_id))
+    current_game.notify_card_clicked(player_id, card_id)
+
+
+@socketio.on('new_topic')
+def newtopic(data):
+    player_id = data["playerid"]
+    topic_text = data["topictext"]
+    print "Topic: %s submitted by %s" % (str(topic_text), str(player_id))
+    current_game.notify_new_topic(player_id, topic_text)
 
 
 @socketio.on('join')

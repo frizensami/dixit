@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% block title %}{{playername}}{% endblock %}
+{% block title %}{{playerid}}{% endblock %}
 {% block content %}
 
 <script type="text/javascript" charset="utf-8">
@@ -13,6 +13,20 @@
 
     function set_image(element_id, img_num) {
         document.getElementById(element_id).src = get_img_url(img_num)
+    }
+
+    function set_deck(images_list) {
+        // assume images_list is like: [2, 5, 16, 20, 3] - load those images with get_img_url
+        for (var i = 0; i < 6; i++) {
+            set_image('c' + i, images_list[i]);
+        }
+    }
+
+    function set_others(images_list) {
+        // assume images_list is like: [2, 5, 16, 20, 3] - load those images with get_img_url
+        for (var i = 0; i < 2; i++) {
+            set_image('o' + i, images_list[i]);
+        }
     }
 
 
@@ -40,9 +54,9 @@
 
 
         if (current_player_id == my_id) {
-            change_header("<b> YOU ARE THE CURRENT PLAYER </b>");
+            change_header("Please enter a <b> topic </b> and click on a <b> card from your deck </b>");
         } else {
-            change_header("Current player is: " + data["starting_player"]);
+            change_header("<b>Waiting for Player " + data["starting_player"] + " (not you) to select a topic and card</b>");
         }
 
     });
@@ -53,49 +67,68 @@
         socket.emit('card_clicked', {playerid: my_id, cardid: card_index});
     }
 
+    function submit_topic() {
+        var topic_text = document.getElementById('topic').value;
+        console.log("Entering topic: " + topic_text);
+        socket.emit('new_topic', {playerid: my_id, topictext: topic_text});
+    }
+
 
 </script>
 
-<div class="page-header">
-  <center><h1 id="header">Game has not started</h1></center>
-</div>
-
-
-<div class="page-header">
-  <center><h1 id="header">Your Deck</h1></center>
-</div>
-
 <center>
-    <input id='c0' onclick=card_clicked('0') type="image" width="10%">
-    <input id='c1' onclick=card_clicked('1') type="image" width="10%">
-    <input id='c2' onclick=card_clicked('2') type="image" width="10%">
-    <input id='c3' onclick=card_clicked('3') type="image" width="10%">
-    <input id='c4' onclick=card_clicked('4') type="image" width="10%">
-    <input id='c5' onclick=card_clicked('5') type="image" width="10%">
-
-    <script>
-
-        set_image('c0', 0);
-        set_image('c1', 0);
-        set_image('c2', 0);
-        set_image('c3', 0);
-        set_image('c4', 0);
-        set_image('c5', 0);
-
-    </script>
+      <h1 id="header">Game has not started</h1>
 
 
-    <div class="page-header">
-      <center><h1 id="header">Enter a topic (if it's your turn)</h1></center>
-  </div>
 
-  <input id="topic" type="text" name="topic" value="">
+  <div class="page-header">
+    <h2 id="header">Enter a topic (if it's your turn)</h2>
+    </div>
 
-  <br>
-  <br>
+    <input id="topic" type="text" name="topic" value="">
 
-  <div class="btn-toolbar" role="group" aria-label="...">
-      <button onclick=submit_topic() class="btn btn-success" role="button">Submit Topic</a>
+    <br>
+    <br>
+
+    <div class="btn-toolbar" role="group" aria-label="...">
+      <button onclick=submit_topic() class="btn btn-success" role="button">Submit Topic</button>
       </div>
+      <div class="page-header">
+          <h2 id="header">Cards selected by other players</h2>
+
+          </div>
+
+
+          <input id='o0' onclick=card_clicked('o0') type="image" width="13%">
+          <input id='o1' onclick=card_clicked('o1') type="image" width="13%">
+
+          <div class="page-header">
+            <h2 id="header">Your Deck</h2>
+          </div>
+
+          <input id='c0' onclick=card_clicked('c0') type="image" width="16%">
+          <input id='c1' onclick=card_clicked('c1') type="image" width="16%">
+          <input id='c2' onclick=card_clicked('c2') type="image" width="16%">
+          <input id='c3' onclick=card_clicked('c3') type="image" width="16%">
+          <input id='c4' onclick=card_clicked('c4') type="image" width="16%">
+          <input id='c5' onclick=card_clicked('c5') type="image" width="16%">
+
+          <script>
+
+            set_image('c0', 0);
+            set_image('c1', 0);
+            set_image('c2', 0);
+            set_image('c3', 0);
+            set_image('c4', 0);
+            set_image('c5', 0);
+            set_image('o0', 0);
+            set_image('o1', 0);
+
+            //set_deck([2, 3, 4, 5, 6, 7]);
+            //set_others([10,11]);
+
+        </script>
+
+
 </center>
-  {% endblock %}
+        {% endblock %}

@@ -39,5 +39,17 @@ class Game:
         else:
             return False
 
+    def notify_card_clicked(self, player_id, card_id):
+        pass
+
+    def notify_new_topic(self, player_id, topic_text):
+        if self.started and (player_id == self.current_target_player):
+            print "New valid topic: %s from %s" % (topic_text, player_id)
+            self.topic = topic_text
+            return True
+        else:
+            return False
+
+
 
 
