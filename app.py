@@ -8,7 +8,7 @@ import logging
 from logging import Formatter, FileHandler
 from forms import *
 import os
-from flask_socketio import SocketIO
+from flask_socketio import SocketIO, send, join_room, leave_room
 from game import Game
 
 #----------------------------------------------------------------------------#
@@ -19,6 +19,7 @@ app = Flask(__name__)
 app.config.from_object('config')
 socketio = SocketIO(app)
 #db = SQLAlchemy(app)
+current_game = None
 
 # Automatically tear down SQLAlchemy.
 '''
@@ -52,7 +53,8 @@ def home():
 @app.route('/<int:playerid>')
 def player(playerid):
     return render_template('pages/player.html',
-        playername="Player " + str(playerid))
+        playername="Player " + str(playerid),
+        room="Dixit")
 
 
 @app.route('/<int:playerid>/play/<int:cardnum>')
@@ -65,11 +67,18 @@ def choose(playerid, cardnum):
     return cardnum
 
 
-@app.route('/start')
-def start():
-    game = Game(2)
-    return game
+@socketio.on('join')
+def on_join(data):
+    username = data['username']
+    room = data['room']
+    join_room(room)
+    send(username + ' has entered the room.', room=room)
+    print str(username) + ' has entered the room ' + str(room)
 
+
+@socketio.on('disconnect')
+def on_leave():
+    print "Client left!"
 
 
 '''

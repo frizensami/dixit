@@ -15,10 +15,21 @@ class Game:
 
     state = STATE.WAIT_TOPIC
     players = []
+    current_target_player = None
+    topic = None
 
-    def __init__(self, num_players):
+    def __init__(self, num_players=1, starting_player_num=0):
         for i in xrange(num_players):
-            self.players.append(Player(i))
+            new_player = Player(i)
+            self.players.append(new_player)
+
+            # Sets the starting player
+            self.current_target_player = starting_player_num
 
         self.state = STATE.WAIT_TOPIC
+
+    def set_topic(self, topic):
+        self.topic = topic
+
+
 
