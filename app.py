@@ -35,11 +35,17 @@ def pick_target_callback(other_cards_for_players):
     print "Emitted pick_target: " + str(other_cards_for_players)
 
 
+def after_guess_callback(target_card):
+    socketio.emit('after_guess', target_card, broadcast=True)
+    print "Emitted after_guess: " + str(target_card)
+
+
 @socketio.on('start_command')
 def start(data):
     global current_game
     current_game = Game(num_players=3, send_topic_callback=topic_callback,
-                        send_pick_target_callback=pick_target_callback)
+                        send_pick_target_callback=pick_target_callback,
+                        send_after_guess_callback=after_guess_callback)
     if current_game.begin():
 
         to_send = {'starting_player': current_game.current_target_player}
@@ -50,6 +56,19 @@ def start(data):
         emit('start', to_send, broadcast=True)
         print "Game started!"
         print "Game start status %s" % current_game.started
+
+
+@socketio.on('next_round')
+def on_nr(data):
+    print "Trying to start next round!"
+    if current_game.start_next_round():
+        to_send = {'starting_player': current_game.current_target_player}
+        for index, player in enumerate(current_game.players):
+            print "Index: " + str(index)
+            to_send[index] = player.deck[0:6]
+
+        emit('start', to_send, broadcast=True)
+        print "next round started!"
 
 
 @socketio.on('deck_card_clicked')
@@ -74,6 +93,7 @@ def newtopic(data):
     topic_text = data["topictext"]
     print "Topic: %s submitted by %s" % (str(topic_text), str(player_id))
     current_game.notify_new_topic(player_id, topic_text)
+
 
 
 @socketio.on('join')
@@ -144,7 +164,7 @@ if not app.debug:
 
 # Default port:
 if __name__ == '__main__':
-    socketio.run(app)
+    socketio.run(app, host="0.0.0.0")
 
 # Or specify port manually:
 '''

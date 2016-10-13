@@ -20,14 +20,32 @@
         for (var i = 0; i < 6; i++) {
           set_image('c' + i, images_list[i]);
         }
-      }
+  }
 
-      function set_others(images_list) {
-        // assume images_list is like: [2, 5, 16, 20, 3] - load those images with get_img_url
-        for (var i = 0; i < 2; i++) {
-          set_image('o' + i, images_list[i]);
-        }
+
+  function set_others(images_list) {
+    // assume images_list is like: [2, 5, 16, 20, 3] - load those images with get_img_url
+    for (var i = 0; i < 2; i++) {
+      set_image('o' + i, images_list[i]);
+    }
+  }
+
+  function set_caption_text(element_id, text) {
+    document.getElementById(element_id).innerHTML = text
+  }
+
+  function set_others_true_false(tf_list) {
+    // assume images_list is like: [2, 5, 16, 20, 3] - load those images with get_img_url
+    for (var i = 0; i < 2; i++) {
+      var caption_name = 'o' + i + '-caption';
+      console.log('setting ' + caption_name);
+      if (tf_list[i]) {
+        set_caption_text(caption_name, "<b>REAL CARD!</b>");
+      } else {
+        set_caption_text(caption_name, "CARD FROM OTHER PLAYER!");
       }
+    }
+  }
 
 
 
@@ -94,6 +112,23 @@
 
       });
 
+      socket.on('after_guess', function(data) {
+        console.log(data);
+        other_cards_status = data[my_id]
+        console.log(other_cards_status)
+
+        if (current_player_id == my_id) {
+          change_header("Waiting for next round to start!");
+        } else {
+          change_header("Waiting for next round! Check 'cards selected by other players' for the REAL card!");
+        }
+
+        set_others_true_false(other_cards_status)
+
+        alert("New instructions received - please check the top!");
+
+      });
+
       function deck_card_clicked(card_index) {
         console.log("deck card clicked: " + card_index);
         socket.emit('deck_card_clicked', {playerid: my_id, cardid: card_index});
@@ -116,6 +151,7 @@
           var radio_name = 'o' + i + '-radio';
           if(document.getElementById(radio_name).checked) {
             console.log("Radio Clicked for other: " + i);
+            alert("Guess made!");
             return other_card_clicked(i);
           }
         }
@@ -147,7 +183,7 @@
 
 
 
-<!-- OTHER CARDS -->
+      <!-- OTHER CARDS -->
 
       <div class="page-header">
         <h2 id="header">Cards selected by other players</h2>
@@ -155,76 +191,96 @@
 
       <table>
         <tr>
-         <td style="text-align: center"> <img id='o0' width='40%'> </td>
-         <td style="text-align: center"> <img id='o1' width='40%'></td>
+         <td style="text-align: center"> <img id='o0' width='40%'>
+           <figcaption id='o0-caption'> </figcaption></td>
+           <td style="text-align: center"> <img id='o1' width='40%'>
+             <figcaption id='o1-caption'> </figcaption></td>
+           </tr>
+           <tr>
+            <td style="text-align: center"> <input type="radio" name='g2' id='o0-radio'> </td>
+            <td style="text-align: center"> <input type="radio" name='g2' id='o1-radio'> </td>
+          </tr>
+
+        </table>
+
+        <button onclick=find_selected_other_card() class="btn btn-success" role="button">Choose Other Player's Card</button>
+
+
+
+
+        <!-- TOPIC -->
+        <div class="page-header">
+          <h2 id="header">Enter a topic (if it's your turn)</h2>
+        </div>
+
+        <input id="topic" type="text" name="topic" value="">
+
+        <br>
+        <br>
+
+        <div class="btn-toolbar" role="group" aria-label="...">
+          <button onclick=submit_topic() class="btn btn-success" role="button">Submit Topic</button>
+        </div>
+
+        <!-- YOUR DECK -->
+
+        <div class="page-header">
+          <h2 id="header">Your Deck</h2>
+        </div>
+
+        <table>
+          <tr>
+           <td>
+             <img id='c0' width='90%'>
+             <figcaption id='c0-caption'> </figcaption>
+           </td>
+           <td>
+             <img id='c1' width='90%'>
+             <figcaption id='c1-caption'> </figcaption>
+           </td>
+           <td>
+             <img id='c2' width='90%'>
+             <figcaption id='c2-caption'> </figcaption>
+           </td>
+           <td>
+            <img id='c3' width='90%'>
+            <figcaption id='c3-caption'> </figcaption>
+          </td>
+          <td>
+           <img id='c4' width='90%'>
+           <figcaption id='c4-caption'> </figcaption>
+         </td>
+         <td>
+           <img id='c5' width='90%'>
+           <figcaption id='c5-caption'> </figcaption>
+         </td>
        </tr>
        <tr>
-        <td style="text-align: center"> <input type="radio" name='g2' id='o0-radio'> </td>
-        <td style="text-align: center"> <input type="radio" name='g2' id='o1-radio'> </td>
+        <td style="text-align: center"> <input type="radio" name='g1' id='c0-radio'> </td>
+        <td style="text-align: center"> <input type="radio" name='g1' id='c1-radio'> </td>
+        <td style="text-align: center"> <input type="radio" name='g1' id='c2-radio'> </td>
+        <td style="text-align: center"> <input type="radio" name='g1' id='c3-radio'> </td>
+        <td style="text-align: center"> <input type="radio" name='g1' id='c4-radio'> </td>
+        <td style="text-align: center"> <input type="radio" name='g1' id='c5-radio'> </td>
       </tr>
 
     </table>
 
-    <button onclick=find_selected_other_card() class="btn btn-success" role="button">Choose Other Player's Card</button>
-
-
-
-
-<!-- TOPIC -->
-    <div class="page-header">
-      <h2 id="header">Enter a topic (if it's your turn)</h2>
-    </div>
-
-    <input id="topic" type="text" name="topic" value="">
-
-    <br>
     <br>
 
-    <div class="btn-toolbar" role="group" aria-label="...">
-      <button onclick=submit_topic() class="btn btn-success" role="button">Submit Topic</button>
-    </div>
-
-<!-- YOUR DECK -->
-
-    <div class="page-header">
-      <h2 id="header">Your Deck</h2>
-    </div>
-
-    <table>
-      <tr align>
-       <td> <img id='c0' width='90%'> </td>
-       <td> <img id='c1' width='90%'></td>
-       <td> <img id='c2' width='90%'> </td>
-       <td> <img id='c3' width='90%'> </td>
-       <td> <img id='c4' width='90%'> </td>
-       <td> <img id='c5' width='90%'> </td>
-     </tr>
-     <tr>
-      <td style="text-align: center"> <input type="radio" name='g1' id='c0-radio'> </td>
-      <td style="text-align: center"> <input type="radio" name='g1' id='c1-radio'> </td>
-      <td style="text-align: center"> <input type="radio" name='g1' id='c2-radio'> </td>
-      <td style="text-align: center"> <input type="radio" name='g1' id='c3-radio'> </td>
-      <td style="text-align: center"> <input type="radio" name='g1' id='c4-radio'> </td>
-      <td style="text-align: center"> <input type="radio" name='g1' id='c5-radio'> </td>
-    </tr>
-
-  </table>
-
-  <br>
-
-  <button onclick=find_selected_deck_card() class="btn btn-success" role="button">Choose Deck Card</button>
+    <button onclick=find_selected_deck_card() class="btn btn-success" role="button">Choose Deck Card</button>
 
 
-        <script>
+    <script>
 
-          set_image('c0', 0);
-          set_image('c1', 0);
-          set_image('c2', 0);
-          set_image('c3', 0);
-          set_image('c4', 0);
-          set_image('c5', 0);
-          set_image('o0', 0);
-          set_image('o1', 0);
+      set_image('c0', 0);
+      set_image('c1', 0);
+      set_image('c2', 0);
+      set_image('c3', 0);
+      set_image('c4', 0);
+      set_image('c5', 0);
+      set_image('o0', 0);
+      set_image('o1', 0);
 
             //set_deck([2, 3, 4, 5, 6, 7]);
             //set_others([10,11]);

@@ -14,6 +14,10 @@
       socket.emit('start_command', {});
     }
 
+    function next_round() {
+      socket.emit('next_round', {});
+    }
+
 
 </script>
 
@@ -35,6 +39,7 @@
 </div>
   <div class="btn-toolbar" role="group" aria-label="...">
       <button onclick=start_game() class="btn btn-success" role="button">Start Game</a>
+      <button onclick=next_round() class="btn btn-success" role="button">Next Round</a>
   </div>
 
 </center>
