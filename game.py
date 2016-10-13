@@ -54,7 +54,7 @@ class Game:
         # This defines the deck distribution for each player
         # i.e. first list = player 0 cards, second = player 1 etc
         self.decks = [[48, 1, 30, 40, 16, 19, 32, 11, 7, 37],
-                      [44, 22, 26, 36, 9, 47, 6, 31, 50, 3]
+                      [44, 22, 26, 36, 9, 47, 6, 31, 50, 3],
                       [45, 20, 25, 33, 17, 28, 49, 42, 5, 35]
                       ]
 
