@@ -25,9 +25,9 @@ class Player:
         self.deck = deck
 
     def __repr__(self):
-        return "id: %s, deck: %s, chosen_card: %s, other_cards: %s, guess: %s" % \
+        return "id: %s, deck: %s, chosen_card: %s, other_cards: %s, guess: %s, points: %s" % \
             (str(self.playerid), str(self.deck), str(self.chosen_card),
-             str(self.other_cards), str(self.guess))
+             str(self.other_cards), str(self.guess), str(self.points))
 
 
 class STATE:
@@ -108,6 +108,11 @@ class Game:
                 self.current_target_player + 1) % self.num_players
             self.state = STATE.WAIT_TOPIC
             print "New current target player: %s" % str(self.current_target_player)
+
+            print "=====PLAYER STATE====="
+            for player in self.players:
+                print str(player)
+
             return True
 
         else:
