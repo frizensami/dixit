@@ -88,6 +88,10 @@ class Game:
     def start_next_round(self):
         if self.state == STATE.WAITING_FOR_NEXT_ROUND:
             print "Successfully starting next round!"
+
+            print "=====PLAYER STATE BEFORE NEXT ROUND====="
+            for player in self.players:
+                print str(player)
             '''
             Todo list to start new round:
             1) Tabulate points for each player
@@ -109,7 +113,7 @@ class Game:
             self.state = STATE.WAIT_TOPIC
             print "New current target player: %s" % str(self.current_target_player)
 
-            print "=====PLAYER STATE====="
+            print "=====PLAYER STATE AFTER NEXT ROUND HAS STARTED====="
             for player in self.players:
                 print str(player)
 
