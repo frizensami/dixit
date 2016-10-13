@@ -30,8 +30,9 @@ def topic_callback(topic):
     print "Emitted topic: " + str(topic)
 
 
-def pick_target_callback():
-    print "====PICK TARGET===="
+def pick_target_callback(other_cards_for_players):
+    socketio.emit('pick_target', other_cards_for_players, broadcast=True)
+    print "Emitted pick_target: " + str(other_cards_for_players)
 
 
 @socketio.on('start_command')

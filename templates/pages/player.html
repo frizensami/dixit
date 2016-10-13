@@ -76,6 +76,24 @@
         alert("New instructions received - please check the top!");
 
       });
+
+
+      socket.on('pick_target', function(data) {
+        console.log(data);
+        other_cards = data[my_id];
+
+        set_others(other_cards);
+
+        if (current_player_id == my_id) {
+          change_header("Topic is: <b> " + topic + "</b>. Please wait for the other players to try to find your card! :)");
+        } else {
+          change_header("Topic is: <b> " + topic + "</b>. Try to find the original player's card!");
+        }
+
+        alert("New instructions received - please check the top!");
+
+      });
+
       function deck_card_clicked(card_index) {
         console.log("deck card clicked: " + card_index);
         socket.emit('deck_card_clicked', {playerid: my_id, cardid: card_index});
