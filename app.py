@@ -9,7 +9,7 @@ from logging import Formatter, FileHandler
 from forms import *
 import os
 from flask_socketio import SocketIO, send, join_room, leave_room, emit
-from game import Game
+from game import Game, STATE
 
 #----------------------------------------------------------------------------#
 # App Config.
@@ -108,7 +108,22 @@ def on_join(data):
         cards = current_game.players[player_id].deck[0:6]
         out_dict = {'starting_player': current_game.current_target_player, player_id: cards}
         emit('start', out_dict)
-        print "Emitted starting info on rejoining player: %s" % str(out_dict)
+        print "Emitted starting info on rejoining player %s: %s" % (player_id, str(out_dict))
+
+        # Step 2: If the topic has already been chosen - send out topic
+        if current_game.state > STATE.WAIT_TOPIC:
+            emit('topic', {'topic': current_game.topic})
+            print "Emitted current topic on player %s rejoin!", player_id
+
+            if current_game.state >= STATE.ALL_CHOOSE_TARGET:
+                # Step 3: if it's the target choosing stage: have to send
+                # the other player cards to the player
+                other_cards_for_players = current_game.resolve_chosen_cards_for_players()
+                emit('pick_target', other_cards_for_players)
+            if current_game.state == STATE.WAITING_FOR_NEXT_ROUND:
+                # Step 4: if that round is 'done',send results
+                guessed = current_game.resolve_guessed_cards_for_players()
+                emit('after_guess', guessed)
 
 
 
