@@ -100,6 +100,17 @@ def newtopic(data):
 def on_join(data):
     print "Player joined: " + str(data['playerid'])
 
+    # We need to send the player his stuff if the game has started
+    global current_game
+    if current_game is not None:
+        # Step 1: Send them their cards
+        player_id = data["playerid"]
+        cards = current_game.players[player_id].deck[0:6]
+        out_dict = {'starting_player': current_game.current_target_player, player_id: cards}
+        emit('start', out_dict)
+        print "Emitted starting info on rejoining player: %s" % str(out_dict)
+
+
 
 @socketio.on('disconnect')
 def on_leave():

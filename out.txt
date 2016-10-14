@@ -1,5 +1,7 @@
 Player joined: 1
+Client left!
 Player joined: 2
+Player joined: 1
 Player joined: 0
 Adding player: 0
 Adding player: 1
@@ -11,184 +13,51 @@ Game started!
 Game start status True
 card id: 3 clicked by 0
 New valid deck card 3 selected as target by current player 0
-Emitted topic: None
-Player joined: 0
-Player joined: 1
-Player joined: 2
-Client left!
-Client left!
-Client left!
-Client left!
-Player joined: 2
-Player joined: 1
-Player joined: 0
-Client left!
-Player joined: 0
-Client left!
-Client left!
-Player joined: 2
-Player joined: 1
-Client left!
-Player joined: 0
-Adding player: 0
-Adding player: 1
-Adding player: 2
-Index: 0
-Index: 1
-Index: 2
-Game started!
-Game start status True
-card id: 2 clicked by 0
-New valid deck card 2 selected as target by current player 0
-Topic: scared submitted by 0
-New valid topic: scared from 0
-Emitted topic: scared
-card id: 2 clicked by 1
-New valid deck card 2 picked as target by current player 1
-card id: 4 clicked by 2
-New valid deck card 4 picked as target by current player 2
-Players: [id: 0, deck: [48, 1, 30, 40, 16, 19, 32, 11, 7, 37, 46], chosen_card: 30, other_cards: None, guess: 30, points: 0, id: 1, deck: [44, 22, 26, 36, 9, 47, 6, 31, 50, 3, 29], chosen_card: 26, other_cards: None, guess: None, points: 0, id: 2, deck: [45, 20, 25, 33, 17, 28, 49, 42, 5, 35, 39], chosen_card: 17, other_cards: None, guess: None, points: 0]
-Emitted pick_target: {0: [26, 17], 1: [30, 17], 2: [30, 26]}
-card id: 1 clicked by 1
-card id: 0 clicked by 2
-Players: [id: 0, deck: [48, 1, 30, 40, 16, 19, 32, 11, 7, 37, 46], chosen_card: 30, other_cards: [26, 17], guess: 30, points: 0, id: 1, deck: [44, 22, 26, 36, 9, 47, 6, 31, 50, 3, 29], chosen_card: 26, other_cards: [30, 17], guess: 17, points: 0, id: 2, deck: [45, 20, 25, 33, 17, 28, 49, 42, 5, 35, 39], chosen_card: 17, other_cards: [30, 26], guess: 30, points: 0]
+Topic: asdf submitted by 0
+New valid topic: asdf from 0
+Emitted topic: asdf
+card id: 3 clicked by 2
+New valid deck card 3 picked as target by current player 2
+card id: 3 clicked by 1
+New valid deck card 3 picked as target by current player 1
+Players: [id: 0, deck: [48, 1, 30, 40, 16, 19, 32, 11, 7, 37, 46], chosen_card: 40, other_cards: None, guess: 40, points: 0, id: 1, deck: [44, 22, 26, 36, 9, 47, 6, 31, 50, 3, 29], chosen_card: 36, other_cards: None, guess: None, points: 0, id: 2, deck: [45, 20, 25, 33, 17, 28, 49, 42, 5, 35, 39], chosen_card: 33, other_cards: None, guess: None, points: 0]
+Emitted pick_target: {0: [36, 33], 1: [40, 33], 2: [40, 36]}
+card id: 0 clicked by 1
+card id: 1 clicked by 2
+Players: [id: 0, deck: [48, 1, 30, 40, 16, 19, 32, 11, 7, 37, 46], chosen_card: 40, other_cards: [36, 33], guess: 40, points: 0, id: 1, deck: [44, 22, 26, 36, 9, 47, 6, 31, 50, 3, 29], chosen_card: 36, other_cards: [40, 33], guess: 40, points: 0, id: 2, deck: [45, 20, 25, 33, 17, 28, 49, 42, 5, 35, 39], chosen_card: 33, other_cards: [40, 36], guess: 36, points: 0]
 Emitted after_guess: {0: [False, False], 1: [True, False], 2: [True, False]}
 Trying to start next round!
 Successfully starting next round!
 =====PLAYER STATE BEFORE NEXT ROUND=====
-id: 0, deck: [48, 1, 30, 40, 16, 19, 32, 11, 7, 37, 46], chosen_card: 30, other_cards: [26, 17], guess: 30, points: 0
-id: 1, deck: [44, 22, 26, 36, 9, 47, 6, 31, 50, 3, 29], chosen_card: 26, other_cards: [30, 17], guess: 17, points: 0
-id: 2, deck: [45, 20, 25, 33, 17, 28, 49, 42, 5, 35, 39], chosen_card: 17, other_cards: [30, 26], guess: 30, points: 0
+id: 0, deck: [48, 1, 30, 40, 16, 19, 32, 11, 7, 37, 46], chosen_card: 40, other_cards: [36, 33], guess: 40, points: 0
+id: 1, deck: [44, 22, 26, 36, 9, 47, 6, 31, 50, 3, 29], chosen_card: 36, other_cards: [40, 33], guess: 40, points: 0
+id: 2, deck: [45, 20, 25, 33, 17, 28, 49, 42, 5, 35, 39], chosen_card: 33, other_cards: [40, 36], guess: 36, points: 0
 increasing points for player 0
 player 0 going to next round!
+increasing points for player 1
 player 1 going to next round!
-increasing points for player 2
 player 2 going to next round!
 New current target player: 1
 =====PLAYER STATE AFTER NEXT ROUND HAS STARTED=====
-id: 0, deck: [48, 1, 40, 16, 19, 32, 11, 7, 37, 46], chosen_card: None, other_cards: None, guess: None, points: 1
-id: 1, deck: [44, 22, 36, 9, 47, 6, 31, 50, 3, 29], chosen_card: None, other_cards: None, guess: None, points: 0
-id: 2, deck: [45, 20, 25, 33, 28, 49, 42, 5, 35, 39], chosen_card: None, other_cards: None, guess: None, points: 1
+id: 0, deck: [48, 1, 30, 16, 19, 32, 11, 7, 37, 46], chosen_card: None, other_cards: None, guess: None, points: 1
+id: 1, deck: [44, 22, 26, 9, 47, 6, 31, 50, 3, 29], chosen_card: None, other_cards: None, guess: None, points: 1
+id: 2, deck: [45, 20, 25, 17, 28, 49, 42, 5, 35, 39], chosen_card: None, other_cards: None, guess: None, points: 0
 Index: 0
 Index: 1
 Index: 2
 next round started!
-Topic: asdf submitted by 1
-True
-1
-1
-3
-True
-True
-False
 card id: 2 clicked by 1
 New valid deck card 2 selected as target by current player 1
 Topic: asdf submitted by 1
 New valid topic: asdf from 1
 Emitted topic: asdf
-card id: 3 clicked by 0
-New valid deck card 3 picked as target by current player 0
 card id: 3 clicked by 2
 New valid deck card 3 picked as target by current player 2
-Players: [id: 0, deck: [48, 1, 40, 16, 19, 32, 11, 7, 37, 46], chosen_card: 16, other_cards: None, guess: None, points: 1, id: 1, deck: [44, 22, 36, 9, 47, 6, 31, 50, 3, 29], chosen_card: 36, other_cards: None, guess: 36, points: 0, id: 2, deck: [45, 20, 25, 33, 28, 49, 42, 5, 35, 39], chosen_card: 33, other_cards: None, guess: None, points: 1]
-Emitted pick_target: {0: [36, 33], 1: [16, 33], 2: [16, 36]}
+card id: 3 clicked by 0
+New valid deck card 3 picked as target by current player 0
+Players: [id: 0, deck: [48, 1, 30, 16, 19, 32, 11, 7, 37, 46], chosen_card: 16, other_cards: None, guess: None, points: 1, id: 1, deck: [44, 22, 26, 9, 47, 6, 31, 50, 3, 29], chosen_card: 26, other_cards: None, guess: 26, points: 1, id: 2, deck: [45, 20, 25, 17, 28, 49, 42, 5, 35, 39], chosen_card: 17, other_cards: None, guess: None, points: 0]
+Emitted pick_target: {0: [26, 17], 1: [16, 17], 2: [16, 26]}
+card id: 1 clicked by 2
 card id: 0 clicked by 0
-card id: 1 clicked by 2
-Players: [id: 0, deck: [48, 1, 40, 16, 19, 32, 11, 7, 37, 46], chosen_card: 16, other_cards: [36, 33], guess: 36, points: 1, id: 1, deck: [44, 22, 36, 9, 47, 6, 31, 50, 3, 29], chosen_card: 36, other_cards: [16, 33], guess: 36, points: 0, id: 2, deck: [45, 20, 25, 33, 28, 49, 42, 5, 35, 39], chosen_card: 33, other_cards: [16, 36], guess: 36, points: 1]
+Players: [id: 0, deck: [48, 1, 30, 16, 19, 32, 11, 7, 37, 46], chosen_card: 16, other_cards: [26, 17], guess: 26, points: 1, id: 1, deck: [44, 22, 26, 9, 47, 6, 31, 50, 3, 29], chosen_card: 26, other_cards: [16, 17], guess: 26, points: 1, id: 2, deck: [45, 20, 25, 17, 28, 49, 42, 5, 35, 39], chosen_card: 17, other_cards: [16, 26], guess: 26, points: 0]
 Emitted after_guess: {0: [True, False], 1: [False, False], 2: [False, True]}
-Client left!
-Client left!
-Client left!
-Adding player: 0
-Adding player: 1
-Adding player: 2
-Index: 0
-Index: 1
-Index: 2
-Game started!
-Game start status True
-Player joined: 2
-Player joined: 1
-Player joined: 0
-Adding player: 0
-Adding player: 1
-Adding player: 2
-Index: 0
-Index: 1
-Index: 2
-Game started!
-Game start status True
-card id: 3 clicked by 0
-New valid deck card 3 selected as target by current player 0
-Topic: asd submitted by 0
-New valid topic: asd from 0
-Emitted topic: asd
-card id: 2 clicked by 1
-New valid deck card 2 picked as target by current player 1
-card id: 4 clicked by 2
-New valid deck card 4 picked as target by current player 2
-Players: [id: 0, deck: [48, 1, 30, 40, 16, 19, 32, 11, 7, 37, 46], chosen_card: 40, other_cards: None, guess: 40, points: 0, id: 1, deck: [44, 22, 26, 36, 9, 47, 6, 31, 50, 3, 29], chosen_card: 26, other_cards: None, guess: None, points: 0, id: 2, deck: [45, 20, 25, 33, 17, 28, 49, 42, 5, 35, 39], chosen_card: 17, other_cards: None, guess: None, points: 0]
-Emitted pick_target: {0: [26, 17], 1: [40, 17], 2: [40, 26]}
-card id: 0 clicked by 1
-card id: 1 clicked by 2
-Players: [id: 0, deck: [48, 1, 30, 40, 16, 19, 32, 11, 7, 37, 46], chosen_card: 40, other_cards: [26, 17], guess: 40, points: 0, id: 1, deck: [44, 22, 26, 36, 9, 47, 6, 31, 50, 3, 29], chosen_card: 26, other_cards: [40, 17], guess: 40, points: 0, id: 2, deck: [45, 20, 25, 33, 17, 28, 49, 42, 5, 35, 39], chosen_card: 17, other_cards: [40, 26], guess: 26, points: 0]
-Emitted after_guess: {0: [False, False], 1: [True, False], 2: [True, False]}
-Client left!
-Client left!
-Client left!
-Player joined: 0
-Player joined: 2
-Player joined: 1
-Adding player: 0
-Adding player: 1
-Adding player: 2
-Index: 0
-Index: 1
-Index: 2
-Game started!
-Game start status True
-card id: 3 clicked by 0
-New valid deck card 3 selected as target by current player 0
-Topic: asd submitted by 0
-New valid topic: asd from 0
-Emitted topic: asd
-card id: 2 clicked by 1
-New valid deck card 2 picked as target by current player 1
-card id: 4 clicked by 2
-New valid deck card 4 picked as target by current player 2
-Players: [id: 0, deck: [48, 1, 30, 40, 16, 19, 32, 11, 7, 37, 46], chosen_card: 40, other_cards: None, guess: 40, points: 0, id: 1, deck: [44, 22, 26, 36, 9, 47, 6, 31, 50, 3, 29], chosen_card: 26, other_cards: None, guess: None, points: 0, id: 2, deck: [45, 20, 25, 33, 17, 28, 49, 42, 5, 35, 39], chosen_card: 17, other_cards: None, guess: None, points: 0]
-Emitted pick_target: {0: [26, 17], 1: [40, 17], 2: [40, 26]}
-card id: 1 clicked by 2
-card id: 0 clicked by 1
-Players: [id: 0, deck: [48, 1, 30, 40, 16, 19, 32, 11, 7, 37, 46], chosen_card: 40, other_cards: [26, 17], guess: 40, points: 0, id: 1, deck: [44, 22, 26, 36, 9, 47, 6, 31, 50, 3, 29], chosen_card: 26, other_cards: [40, 17], guess: 40, points: 0, id: 2, deck: [45, 20, 25, 33, 17, 28, 49, 42, 5, 35, 39], chosen_card: 17, other_cards: [40, 26], guess: 26, points: 0]
-Emitted after_guess: {0: [False, False], 1: [True, False], 2: [True, False]}
-Client left!
-Client left!
-Client left!
-Client left!
-Player joined: 2
-Player joined: 1
-Player joined: 0
-Adding player: 0
-Adding player: 1
-Adding player: 2
-Index: 0
-Index: 1
-Index: 2
-Game started!
-Game start status True
-card id: 2 clicked by 0
-New valid deck card 2 selected as target by current player 0
-Topic: d submitted by 0
-New valid topic: d from 0
-Emitted topic: d
-card id: 2 clicked by 1
-New valid deck card 2 picked as target by current player 1
-card id: 4 clicked by 2
-New valid deck card 4 picked as target by current player 2
-Players: [id: 0, deck: [48, 1, 30, 40, 16, 19, 32, 11, 7, 37, 46], chosen_card: 30, other_cards: None, guess: 30, points: 0, id: 1, deck: [44, 22, 26, 36, 9, 47, 6, 31, 50, 3, 29], chosen_card: 26, other_cards: None, guess: None, points: 0, id: 2, deck: [45, 20, 25, 33, 17, 28, 49, 42, 5, 35, 39], chosen_card: 17, other_cards: None, guess: None, points: 0]
-Emitted pick_target: {0: [26, 17], 1: [30, 17], 2: [30, 26]}
-card id: 1 clicked by 2
-card id: 1 clicked by 1
-Players: [id: 0, deck: [48, 1, 30, 40, 16, 19, 32, 11, 7, 37, 46], chosen_card: 30, other_cards: [26, 17], guess: 30, points: 0, id: 1, deck: [44, 22, 26, 36, 9, 47, 6, 31, 50, 3, 29], chosen_card: 26, other_cards: [30, 17], guess: 17, points: 0, id: 2, deck: [45, 20, 25, 33, 17, 28, 49, 42, 5, 35, 39], chosen_card: 17, other_cards: [30, 26], guess: 26, points: 0]
-Emitted after_guess: {0: [False, False], 1: [True, False], 2: [True, False]}

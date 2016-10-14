@@ -31,10 +31,10 @@ class Player:
 
 
 class STATE:
-    WAIT_TOPIC = 0
-    WAIT_CARD = 3
-    ALL_PICK = 1
-    ALL_CHOOSE_TARGET = 2
+    WAIT_TOPIC = 1
+    WAIT_CARD = 0
+    ALL_PICK = 2
+    ALL_CHOOSE_TARGET = 3
     WAITING_FOR_NEXT_ROUND = 4
 
 
