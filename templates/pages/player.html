@@ -20,10 +20,10 @@
         for (var i = 0; i < 6; i++) {
           set_image('c' + i, images_list[i]);
         }
-  }
+      }
 
 
-  function set_others(images_list) {
+      function set_others(images_list) {
     // assume images_list is like: [2, 5, 16, 20, 3] - load those images with get_img_url
     for (var i = 0; i < 2; i++) {
       set_image('o' + i, images_list[i]);
@@ -49,240 +49,239 @@
 
 
 
-    </script>
+</script>
 
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
-    <script type="text/javascript" charset="utf-8">
-      var socket = io.connect('http://' + document.domain + ':' + location.port);
-      var my_id = {{playerid}};
-      var current_player_id = -1;
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+  var socket = io.connect('http://' + document.domain + ':' + location.port);
+  var my_id = {{playerid}};
+  var current_player_id = -1;
 
-      socket.on('connect', function() {
-        console.log("Connected to server!");
-        socket.emit('join', {playerid: my_id});
-      });
+  socket.on('connect', function() {
+    console.log("Connected to server!");
+    socket.emit('join', {playerid: my_id});
+  });
 
-      socket.on('disconnect', function() {
-        console.log("disconnected!");
-      });
+  socket.on('disconnect', function() {
+    console.log("disconnected!");
+  });
 
-      socket.on('start', function(data) {
-        console.log(data);
-        current_player_id = data["starting_player"];
-        set_deck(data[my_id]);
+  socket.on('start', function(data) {
+    console.log(data);
+    current_player_id = data["starting_player"];
+    set_deck(data[my_id]);
 
-        if (current_player_id == my_id) {
-          change_header("Please enter a <b> topic </b> and choose a <b> related card from your deck </b>");
-        } else {
-          change_header("<b>Waiting for Player " + data["starting_player"] + " (not you) to select a topic and card</b>");
-        }
+    if (current_player_id == my_id) {
+      change_header("Please choose a <b> card from your deck </b> and enter a <b> topic </b>");
+    } else {
+      change_header("<b>Waiting for Player " + data["starting_player"] + " (not you) to select a topic and card</b>");
+    }
 
-        set_others([0, 0])
+    set_others([0, 0]);
+    set_caption_text('o0-caption', "");
+    set_caption_text('o1-caption', "");
 
-        alert("Game started! Please read the instructions at the top");
+    alert("Game started! Please read the instructions at the top");
 
-      });
+  });
 
-      socket.on('topic', function(data) {
-        console.log(data);
-        topic = data["topic"];
+  socket.on('topic', function(data) {
+    console.log(data);
+    topic = data["topic"];
 
-        if (current_player_id == my_id) {
-          change_header("Topic is: <b> " + topic + "</b>. Please wait for other players to choose a card.");
-        } else {
-          change_header("Topic is: <b> " + topic + "</b>. Please choose a card!");
-        }
+    if (current_player_id == my_id) {
+      change_header("Topic is: <b> " + topic + "</b>. Please wait for other players to choose a card.");
+    } else {
+      change_header("Topic is: <b> " + topic + "</b>. Please choose a card!");
+    }
 
-        alert("New instructions received - please check the top!");
+    alert("New instructions received - please check the top!");
 
-      });
+  });
 
 
-      socket.on('pick_target', function(data) {
-        console.log(data);
-        other_cards = data[my_id];
+  socket.on('pick_target', function(data) {
+    console.log(data);
+    other_cards = data[my_id];
 
-        set_others(other_cards);
+    set_others(other_cards);
 
-        if (current_player_id == my_id) {
-          change_header("Topic is: <b> " + topic + "</b>. Please wait for the other players to try to find your card! :)");
-        } else {
-          change_header("Topic is: <b> " + topic + "</b>. Try to find the original player's card!");
-        }
+    if (current_player_id == my_id) {
+      change_header("Topic is: <b> " + topic + "</b>. Please wait for the other players to try to find your card! :)");
+    } else {
+      change_header("Topic is: <b> " + topic + "</b>. Try to find the original player's card!");
+    }
 
-        alert("New instructions received - please check the top!");
+    alert("New instructions received - please check the top!");
 
-      });
+  });
 
-      socket.on('after_guess', function(data) {
-        console.log(data);
-        other_cards_status = data[my_id]
-        console.log(other_cards_status)
+  socket.on('after_guess', function(data) {
+    console.log(data);
+    other_cards_status = data[my_id]
+    console.log(other_cards_status)
 
-        if (current_player_id == my_id) {
-          change_header("Waiting for next round to start!");
-        } else {
-          change_header("Waiting for next round! Check 'cards selected by other players' for the REAL card!");
-        }
+    if (current_player_id == my_id) {
+      change_header("Waiting for next round to start!");
+    } else {
+      change_header("Waiting for next round! Check 'cards selected by other players' for the REAL card!");
+    }
 
-        set_others_true_false(other_cards_status)
+    set_others_true_false(other_cards_status)
 
-        alert("New instructions received - please check the top!");
+    alert("New instructions received - please check the top!");
 
-      });
+  });
 
-      function deck_card_clicked(card_index) {
-        console.log("deck card clicked: " + card_index);
-        socket.emit('deck_card_clicked', {playerid: my_id, cardid: card_index});
+  function deck_card_clicked(card_index) {
+    console.log("deck card clicked: " + card_index);
+    socket.emit('deck_card_clicked', {playerid: my_id, cardid: card_index});
+  }
+
+  function other_card_clicked(card_index) {
+    console.log("other_card clicked: " + card_index);
+    socket.emit('other_card_clicked', {playerid: my_id, cardid: card_index});
+  }
+
+  function submit_topic() {
+    var topic_text = document.getElementById('topic').value;
+    console.log("Entering topic: " + topic_text);
+    socket.emit('new_topic', {playerid: my_id, topictext: topic_text});
+    alert("Topic submitted: " + topic_text)
+  }
+
+  function find_selected_other_card() {
+    for (var i = 0; i < 2; i++) {
+      var radio_name = 'o' + i + '-radio';
+      if(document.getElementById(radio_name).checked) {
+        console.log("Radio Clicked for other: " + i);
+        alert("Guess made!");
+        return other_card_clicked(i);
       }
+    }
 
-      function other_card_clicked(card_index) {
-        console.log("other_card clicked: " + card_index);
-        socket.emit('other_card_clicked', {playerid: my_id, cardid: card_index});
+    console.log("No card clicked!")
+    return null;
+  }
+
+  function find_selected_deck_card() {
+    for (var i = 0; i < 6; i++) {
+      var radio_name = 'c' + i + '-radio';
+      if(document.getElementById(radio_name).checked) {
+        console.log("Radio Clicked for deck: " + i);
+        alert("Card selected from deck!");
+        return deck_card_clicked(i);
       }
+    }
 
-      function submit_topic() {
-        var topic_text = document.getElementById('topic').value;
-        console.log("Entering topic: " + topic_text);
-        socket.emit('new_topic', {playerid: my_id, topictext: topic_text});
-        alert("Topic submitted: " + topic_text)
-      }
-
-      function find_selected_other_card() {
-        for (var i = 0; i < 2; i++) {
-          var radio_name = 'o' + i + '-radio';
-          if(document.getElementById(radio_name).checked) {
-            console.log("Radio Clicked for other: " + i);
-            alert("Guess made!");
-            return other_card_clicked(i);
-          }
-        }
-
-        console.log("No card clicked!")
-        return null;
-      }
-
-      function find_selected_deck_card() {
-        for (var i = 0; i < 6; i++) {
-          var radio_name = 'c' + i + '-radio';
-          if(document.getElementById(radio_name).checked) {
-            console.log("Radio Clicked for deck: " + i);
-            alert("Card selected from deck!");
-            return deck_card_clicked(i);
-          }
-        }
-
-        console.log("No card clicked!")
-        alert("No card selected!");
-        return null;
-      }
+    console.log("No card clicked!")
+    alert("No card selected!");
+    return null;
+  }
 
 
-    </script>
+</script>
 
-    <center>
-      <h1 id="header">Game has not started</h1>
+<center>
+  <h1 id="header">Game has not started</h1>
 
 
 
-      <!-- OTHER CARDS -->
+  <!-- OTHER CARDS -->
 
-      <div class="page-header">
-        <h2 id="header">Cards selected by other players</h2>
-      </div>
+  <div class="page-header">
+    <h2 id="header">Cards selected by other players</h2>
+  </div>
 
-      <table>
-        <tr>
-         <td style="text-align: center"> <img id='o0' width='40%'>
-           <figcaption id='o0-caption'> </figcaption></td>
-           <td style="text-align: center"> <img id='o1' width='40%'>
-             <figcaption id='o1-caption'> </figcaption></td>
-           </tr>
-           <tr>
-            <td style="text-align: center"> <input type="radio" name='g2' id='o0-radio'> </td>
-            <td style="text-align: center"> <input type="radio" name='g2' id='o1-radio'> </td>
-          </tr>
-
-        </table>
-
-        <button onclick=find_selected_other_card() class="btn btn-success" role="button">Choose Other Player's Card</button>
-
-
-
-
-        <!-- TOPIC -->
-        <div class="page-header">
-          <h2 id="header">Enter a topic (if it's your turn)</h2>
-        </div>
-
-        <input id="topic" type="text" name="topic" value="">
-
-        <br>
-        <br>
-
-        <div class="btn-toolbar" role="group" aria-label="...">
-          <button onclick=submit_topic() class="btn btn-success" role="button">Submit Topic</button>
-        </div>
-
-        <!-- YOUR DECK -->
-
-        <div class="page-header">
-          <h2 id="header">Your Deck</h2>
-        </div>
-
-        <table>
-          <tr>
-           <td>
-             <img id='c0' width='90%'>
-             <figcaption id='c0-caption'> </figcaption>
-           </td>
-           <td>
-             <img id='c1' width='90%'>
-             <figcaption id='c1-caption'> </figcaption>
-           </td>
-           <td>
-             <img id='c2' width='90%'>
-             <figcaption id='c2-caption'> </figcaption>
-           </td>
-           <td>
-            <img id='c3' width='90%'>
-            <figcaption id='c3-caption'> </figcaption>
-          </td>
-          <td>
-           <img id='c4' width='90%'>
-           <figcaption id='c4-caption'> </figcaption>
-         </td>
-         <td>
-           <img id='c5' width='90%'>
-           <figcaption id='c5-caption'> </figcaption>
-         </td>
+  <table>
+    <tr>
+     <td style="text-align: center"> <img id='o0' width='40%'>
+       <figcaption id='o0-caption'> </figcaption></td>
+       <td style="text-align: center"> <img id='o1' width='40%'>
+         <figcaption id='o1-caption'> </figcaption></td>
        </tr>
        <tr>
-        <td style="text-align: center"> <input type="radio" name='g1' id='c0-radio'> </td>
-        <td style="text-align: center"> <input type="radio" name='g1' id='c1-radio'> </td>
-        <td style="text-align: center"> <input type="radio" name='g1' id='c2-radio'> </td>
-        <td style="text-align: center"> <input type="radio" name='g1' id='c3-radio'> </td>
-        <td style="text-align: center"> <input type="radio" name='g1' id='c4-radio'> </td>
-        <td style="text-align: center"> <input type="radio" name='g1' id='c5-radio'> </td>
+        <td style="text-align: center"> <input type="radio" name='g2' id='o0-radio'> </td>
+        <td style="text-align: center"> <input type="radio" name='g2' id='o1-radio'> </td>
       </tr>
 
     </table>
 
-    <br>
-
-    <button onclick=find_selected_deck_card() class="btn btn-success" role="button">Choose Deck Card</button>
+    <button onclick=find_selected_other_card() class="btn btn-success" role="button">Choose Other Player's Card</button>
 
 
-    <script>
+    <!-- YOUR DECK -->
 
-      set_image('c0', 0);
-      set_image('c1', 0);
-      set_image('c2', 0);
-      set_image('c3', 0);
-      set_image('c4', 0);
-      set_image('c5', 0);
-      set_image('o0', 0);
-      set_image('o1', 0);
+    <div class="page-header">
+      <h2 id="header">Your Deck</h2>
+    </div>
+
+    <table>
+      <tr>
+       <td>
+         <img id='c0' width='90%'>
+         <figcaption id='c0-caption'> </figcaption>
+       </td>
+       <td>
+         <img id='c1' width='90%'>
+         <figcaption id='c1-caption'> </figcaption>
+       </td>
+       <td>
+         <img id='c2' width='90%'>
+         <figcaption id='c2-caption'> </figcaption>
+       </td>
+       <td>
+        <img id='c3' width='90%'>
+        <figcaption id='c3-caption'> </figcaption>
+      </td>
+      <td>
+       <img id='c4' width='90%'>
+       <figcaption id='c4-caption'> </figcaption>
+     </td>
+     <td>
+       <img id='c5' width='90%'>
+       <figcaption id='c5-caption'> </figcaption>
+     </td>
+   </tr>
+   <tr>
+    <td style="text-align: center"> <input type="radio" name='g1' id='c0-radio'> </td>
+    <td style="text-align: center"> <input type="radio" name='g1' id='c1-radio'> </td>
+    <td style="text-align: center"> <input type="radio" name='g1' id='c2-radio'> </td>
+    <td style="text-align: center"> <input type="radio" name='g1' id='c3-radio'> </td>
+    <td style="text-align: center"> <input type="radio" name='g1' id='c4-radio'> </td>
+    <td style="text-align: center"> <input type="radio" name='g1' id='c5-radio'> </td>
+  </tr>
+
+</table>
+
+<br>
+
+<button onclick=find_selected_deck_card() class="btn btn-success" role="button">Choose Deck Card</button>
+
+
+<!-- TOPIC -->
+<div class="page-header">
+  <h2 id="header">Enter a topic (if it's your turn)</h2>
+</div>
+
+<input id="topic" type="text" name="topic" value="">
+
+<br>
+<br>
+
+<div class="btn-toolbar" role="group" aria-label="...">
+  <button onclick=submit_topic() class="btn btn-success" role="button">Submit Topic</button>
+</div>
+<script>
+
+  set_image('c0', 0);
+  set_image('c1', 0);
+  set_image('c2', 0);
+  set_image('c3', 0);
+  set_image('c4', 0);
+  set_image('c5', 0);
+  set_image('o0', 0);
+  set_image('o1', 0);
 
             //set_deck([2, 3, 4, 5, 6, 7]);
             //set_others([10,11]);

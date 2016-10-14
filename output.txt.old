@@ -1,0 +1,55 @@
+Client left!
+Player joined: 2
+Player joined: 1
+Player joined: 0
+Adding player: 0
+Adding player: 1
+Adding player: 2
+Index: 0
+Index: 1
+Index: 2
+Client left!
+Game started!
+Game start status True
+Topic: dreams submitted by 0
+New valid topic: dreams from 0
+Client left!
+card id: 5 clicked by 0
+New valid deck card 5 selected as target by current player 0
+Emitted topic: dreams
+card id: 5 clicked by 1
+New valid deck card 5 picked as target by current player 1
+card id: 5 clicked by 2
+New valid deck card 5 picked as target by current player 2
+Players: [id: 0, deck: [48, 1, 30, 40, 16, 19, 32, 11, 7, 37], chosen_card: 19, other_cards: None, guess: 19, points: 0, id: 1, deck: [44, 22, 26, 36, 9, 47, 6, 31, 50, 3], chosen_card: 47, other_cards: None, guess: None, points: 0, id: 2, deck: [45, 20, 25, 33, 17, 28, 49, 42, 5, 35], chosen_card: 28, other_cards: None, guess: None, points: 0]
+Emitted pick_target: {0: [47, 28], 1: [19, 28], 2: [19, 47]}
+card id: 0 clicked by 1
+card id: 0 clicked by 2
+Players: [id: 0, deck: [48, 1, 30, 40, 16, 19, 32, 11, 7, 37], chosen_card: 19, other_cards: [47, 28], guess: 19, points: 0, id: 1, deck: [44, 22, 26, 36, 9, 47, 6, 31, 50, 3], chosen_card: 47, other_cards: [19, 28], guess: 19, points: 0, id: 2, deck: [45, 20, 25, 33, 17, 28, 49, 42, 5, 35], chosen_card: 28, other_cards: [19, 47], guess: 19, points: 0]
+Emitted after_guess: {0: [False, False], 1: [True, False], 2: [True, False]}
+Trying to start next round!
+Successfully starting next round!
+=====PLAYER STATE BEFORE NEXT ROUND=====
+id: 0, deck: [48, 1, 30, 40, 16, 19, 32, 11, 7, 37], chosen_card: 19, other_cards: [47, 28], guess: 19, points: 0
+id: 1, deck: [44, 22, 26, 36, 9, 47, 6, 31, 50, 3], chosen_card: 47, other_cards: [19, 28], guess: 19, points: 0
+id: 2, deck: [45, 20, 25, 33, 17, 28, 49, 42, 5, 35], chosen_card: 28, other_cards: [19, 47], guess: 19, points: 0
+increasing points for player 0
+player 0 going to next round!
+increasing points for player 1
+player 1 going to next round!
+increasing points for player 2
+player 2 going to next round!
+New current target player: 1
+=====PLAYER STATE AFTER NEXT ROUND HAS STARTED=====
+id: 0, deck: [48, 1, 30, 40, 16, 32, 11, 7, 37], chosen_card: None, other_cards: None, guess: None, points: 1
+id: 1, deck: [44, 22, 26, 36, 9, 6, 31, 50, 3], chosen_card: None, other_cards: None, guess: None, points: 1
+id: 2, deck: [45, 20, 25, 33, 17, 49, 42, 5, 35], chosen_card: None, other_cards: None, guess: None, points: 1
+Index: 0
+Index: 1
+Index: 2
+next round started!
+Client left!
+Player joined: 0
+Client left!
+Player joined: 1
+Client left!

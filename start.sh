@@ -1,1 +1,1 @@
-python app.py > output.txt
+python app.py > out.txt
