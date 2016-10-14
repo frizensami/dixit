@@ -40,9 +40,9 @@
       var caption_name = 'o' + i + '-caption';
       console.log('setting ' + caption_name);
       if (tf_list[i]) {
-        set_caption_text(caption_name, "<b>REAL CARD!</b>");
+        set_caption_text(caption_name, "<h1><div style= 'color: #00ff00'>CORRECT CARD!</div></h1>");
       } else {
-        set_caption_text(caption_name, "CARD FROM OTHER PLAYER!");
+        set_caption_text(caption_name, "<h1><div style= 'color: red'>CARD FROM OTHER PLAYER!</div><h1>");
       }
     }
   }
@@ -92,7 +92,7 @@
     if (current_player_id == my_id) {
       change_header("Topic is: <b> " + topic + "</b>. Please wait for other players to choose a card.");
     } else {
-      change_header("Topic is: <b> " + topic + "</b>. Please choose a card!");
+      change_header("Topic is: <b> " + topic + "</b>. Please choose a card that represents the topic!");
     }
 
     alert("New instructions received - please check the top!");

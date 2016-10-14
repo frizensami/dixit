@@ -42,7 +42,7 @@ class Game:
 
     def reset(self):
         self.started = False
-        self.state = STATE.WAIT_TOPIC
+        self.state = STATE.WAIT_CARD
         self.players = []
         self.current_target_player = None
         self.topic = None
@@ -70,7 +70,7 @@ class Game:
             # Sets the starting player
             self.current_target_player = starting_player_num
 
-        self.state = STATE.WAIT_TOPIC
+        self.state = STATE.WAIT_CARD
         self.send_topic_callback = send_topic_callback
         self.send_pick_target_callback = send_pick_target_callback
         self.send_after_guess_callback = send_after_guess_callback
@@ -110,7 +110,7 @@ class Game:
 
             self.current_target_player = (
                 self.current_target_player + 1) % self.num_players
-            self.state = STATE.WAIT_TOPIC
+            self.state = STATE.WAIT_CARD
             print "New current target player: %s" % str(self.current_target_player)
 
             print "=====PLAYER STATE AFTER NEXT ROUND HAS STARTED====="
@@ -130,8 +130,7 @@ class Game:
                 player_id].deck[card_id]
             self.players[player_id].guess = self.players[
                 player_id].deck[card_id]
-            self.send_topic_callback(self.topic)
-            self.state = STATE.ALL_PICK
+            self.state = STATE.WAIT_TOPIC
 
         elif self.started and self.state == STATE.ALL_PICK:
             print "New valid deck card %s picked as target by current player %s" % (card_id, player_id)
@@ -156,7 +155,8 @@ class Game:
         if self.started and (player_id == self.current_target_player) and self.state == STATE.WAIT_TOPIC:
             print "New valid topic: %s from %s" % (topic_text, player_id)
             self.topic = topic_text
-            self.state = STATE.WAIT_CARD
+            self.send_topic_callback(self.topic)
+            self.state = STATE.ALL_PICK
             return True
         else:
             print str(self.started)
