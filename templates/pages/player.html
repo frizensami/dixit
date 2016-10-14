@@ -71,10 +71,15 @@
     current_player_id = data["starting_player"];
     set_deck(data[my_id]);
 
+    var playername = "Player " + current_player_id;
+      if (current_player_id == 0) {
+        playername = "A.I."
+      }
+
     if (current_player_id == my_id) {
       change_header("Please choose a <b> card from your deck </b> and enter a <b> topic </b>");
     } else {
-      change_header("<b>Waiting for Player " + data["starting_player"] + " (not you) to select a topic and card</b>");
+      change_header("<b>Waiting for " + playername + " (not you) to select a topic and card</b>");
     }
 
     set_others([0, 0]);
@@ -90,6 +95,9 @@
     topic = data["topic"];
 
     if (current_player_id == my_id) {
+
+
+
       change_header("Topic is: <b> " + topic + "</b>. Please wait for other players to choose a card.");
     } else {
       change_header("Topic is: <b> " + topic + "</b>. Please choose a card that represents the topic!");
@@ -207,7 +215,7 @@
 
     </table>
 
-    <button onclick=find_selected_other_card() class="btn btn-success" role="button">Choose Other Player's Card</button>
+    <button onclick=find_selected_other_card() class="btn btn-success" role="button">Submit Choice</button>
 
 
     <!-- YOUR DECK -->
@@ -256,7 +264,7 @@
 
 <br>
 
-<button onclick=find_selected_deck_card() class="btn btn-success" role="button">Choose Deck Card</button>
+<button onclick=find_selected_deck_card() class="btn btn-success" role="button">Submit Your Card</button>
 
 
 <!-- TOPIC -->
