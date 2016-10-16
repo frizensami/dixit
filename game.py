@@ -1,3 +1,5 @@
+from results import GameLogger
+
 class Player:
 
     def reset(self):
@@ -50,6 +52,7 @@ class Game:
         self.send_pick_target_callback = None
         self.send_after_guess_callback = None
         self.num_players = 0
+        self.logger = GameLogger()
 
         # This defines the deck distribution for each player
         # i.e. first list = player 0 cards, second = player 1 etc
