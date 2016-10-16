@@ -62,7 +62,8 @@ class Game:
                       ]
 
     def __init__(self, num_players=1, starting_player_num=0, send_topic_callback=None,
-                 send_pick_target_callback=None, send_after_guess_callback=None):
+                 send_pick_target_callback=None, send_after_guess_callback=None,
+                 swap_cards=False):
         self.reset()
         self.num_players = num_players
         for i in xrange(num_players):
@@ -77,6 +78,19 @@ class Game:
         self.send_topic_callback = send_topic_callback
         self.send_pick_target_callback = send_pick_target_callback
         self.send_after_guess_callback = send_after_guess_callback
+
+        if swap_cards:
+            # Game with cards in swapped order
+            self.swap_player0_player1_decks()
+
+    def swap_player0_player1_decks(self):
+        player0_deck = self.players[0].deck
+        player1_deck = self.players[1].deck
+
+        self.players[0].deck = player1_deck
+        self.players[1].deck = player0_deck
+
+        print "Swapped player0 and player1 decks!"
 
     def set_topic(self, topic):
         self.topic = topic

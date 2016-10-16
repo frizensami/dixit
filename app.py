@@ -57,6 +57,24 @@ def start(data):
         print "Game started!"
         print "Game start status %s" % current_game.started
 
+@socketio.on('start_swap_command')
+def start(data):
+    global current_game
+    current_game = Game(num_players=3, send_topic_callback=topic_callback,
+                        send_pick_target_callback=pick_target_callback,
+                        send_after_guess_callback=after_guess_callback,
+                        swap_cards=True)
+    if current_game.begin():
+
+        to_send = {'starting_player': current_game.current_target_player}
+        for index, player in enumerate(current_game.players):
+            print "Index: " + str(index)
+            to_send[index] = player.deck[0:6]
+
+        emit('start', to_send, broadcast=True)
+        print "Game started!"
+        print "Game start status %s" % current_game.started
+
 
 @socketio.on('next_round')
 def on_nr(data):

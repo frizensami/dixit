@@ -13,6 +13,10 @@
       socket.emit('start_command', {});
     }
 
+    function start_game_swap() {
+      socket.emit('start_swap_command', {});
+    }
+
     function next_round() {
       socket.emit('next_round', {});
     }
@@ -39,6 +43,7 @@
   <div class="btn-toolbar" role="group" aria-label="...">
       <button onclick=start_game() class="btn btn-success" role="button">Start Game</a>
       <button onclick=next_round() class="btn btn-success" role="button">Next Round</a>
+      <button onclick=start_game_swap() class="btn btn-success" role="button">Start Game (2)</a>
   </div>
 
 </center>
