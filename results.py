@@ -13,3 +13,6 @@ class GameLogger:
     def __exit__(self):
         self.logfile.close()
 
+    def write(self, text):
+        self.logfile.write(text)
+
